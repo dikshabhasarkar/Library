@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Show Books</title>
+</head>
+<body>
+<h2>Books<h2><br>
+    <!-- {% for i in all_books %}
+    {{ forloop.counter }}--{{i.name}} -- Price:- {{i.price}} <br>
+    {% endfor %} -->
+    <!-- {{all_books}} -->
+
+    <table border="2" style="width:100%" >
+        <tr>
+          <th>Book ID</th>
+          <th>Book Name</th>
+          <th>Book Price</th>
+          <th>Book Qty</th>
+          <th>Is Book Published</th>
+          <th>Published Date</th>
+          <th>Action</th>
+        </tr>
+
+        {% for b in all_books %}
+        <tr>
+            <td>{{b.id}}</td>
+            <td>{{b.name}}</td>
+            <td>{{b.price}}</td>
+            <td>{{b.qty}}</td>
+            {% if b.is_published %}
+            <td>Yes</td>
+            {% else %}
+            <td>No</td>
+            {% endif %}
+            {% if b.published_date %}
+            <td>{{b.published_date}}</td>
+            {% else %}
+            <td>---</td>
+            {% endif %}
+            <td>
+            {% if book_status != 'InActive'%}
+            <a href="{% url 'update' b.id %}">Edit</a>&nbsp|&nbsp    
+            <a href="{% url 'soft_delete' b.id %}"> Soft Delete</a>&nbsp|&nbsp
+            {% endif %}
+            <a href="{% url 'delete' b.id %}">Hard Delete</a>&nbsp|&nbsp
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/homepage/">Home Page</a>
+    <a href="{% url 'active_books' %}">Show Active Books</a>
+    <a href="{% url 'inactive_books' %}">Show InActive Books</a>
+</form>
+</body>
+</html>
